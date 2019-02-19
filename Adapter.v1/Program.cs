@@ -44,8 +44,8 @@ namespace Adapter.v1
         /// Sets a new value for an existing key.
         /// </summary>
         /// <param name="key">The requested pair's key.</param>
-        /// <param name="value">The new value.</param>
-        void SetValue(string key, string value);
+        /// <param name="newValue">The new value.</param>
+        void SetValue(string key, string newValue);
 
         /// <summary>
         /// Serializes the tree into string representation.
@@ -62,6 +62,10 @@ namespace Adapter.v1
 
     class Program
     {
+        /// <summary>
+        /// "Client" method: Uses ITree, doesn't know about JSON and XML.
+        /// </summary>
+        /// <param name="tree">Tree object used by the client.</param>
         static void ManipulateTree(ITree tree)
         {
             Console.WriteLine("Initial tree structure:{0}{1}", Environment.NewLine,
@@ -83,5 +87,4 @@ namespace Adapter.v1
             // ToDo: Construct a JSON/XML object and pass it to ManipulateTree().
         }
     }
-
 }
