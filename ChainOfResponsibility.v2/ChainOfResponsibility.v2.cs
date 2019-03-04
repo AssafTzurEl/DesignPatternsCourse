@@ -80,14 +80,60 @@ namespace ChainOfResponsibility.v2
         }
     }
 
+    // ToDo: Add C+ grade, for grades between 75 and 79
+
+    class CHandler : TestHandler
+    {
+        public CHandler(ITestHandler nextHandler)
+            : base(nextHandler)
+        { }
+
+        public override string ConvertToGrade(int testResult)
+        {
+            if (testResult >= 70) // I can handle it
+            {
+                return "C";
+            }
+            else // Can't handle it - maybe someone else along the chain
+            {
+                return _nextHandler?.ConvertToGrade(testResult);
+            }
+        }
+    }
+
+    sealed class DefaultHandler : ITestHandler
+    {
+        public string ConvertToGrade(int testResult)
+        {
+            return "F";
+        }
+    }
+
+    class GradeManager
+    {
+        public GradeManager(ITestHandler testHandler)
+        {
+            _testHandler = testHandler;
+        }
+
+        public void PrintTestResults(int testResult)
+        {
+            Console.WriteLine("Your grade is: {0}", _testHandler.ConvertToGrade(testResult));
+        }
+
+        private ITestHandler _testHandler;
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            var testHandlerChain = new BHandler(new AHandler(new APlusHandler(null)));
-            var testResult = 85;
+            // ToDo: Remove B grade - 80s are also considered C
+            var testHandlerChain = new APlusHandler(new AHandler(new BHandler(new CHandler(new DefaultHandler()))));
+            var gradeManager = new GradeManager(testHandlerChain);
 
-            Console.WriteLine("Your grade is: {0}", testHandlerChain.ConvertToGrade(testResult));
+            gradeManager.PrintTestResults(85);
+            gradeManager.PrintTestResults(40);
         }
     }
 }
