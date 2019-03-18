@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mediator
 {
@@ -19,6 +16,9 @@ namespace Mediator
             void SendBulkMessage(string fromUser, string message);
         }
 
+        /// <summary>
+        /// ConcreteMediator class.
+        /// </summary>
         class ChatRoom : IChatRoom
         {
             public void Add(Participant participant)
@@ -52,6 +52,9 @@ namespace Mediator
             private Dictionary<string, Participant> _participants = new Dictionary<string, Participant>();
         }
 
+        /// <summary>
+        /// Colleague class.
+        /// </summary>
         interface IParticipant
         {
             void Send(string toUser, string message);
@@ -66,6 +69,7 @@ namespace Mediator
                 Name = name;
             }
 
+            // Not in the interface:
             public string Name { get; private set; }
 
             public void Receive(string fromUser, string message)
