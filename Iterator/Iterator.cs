@@ -54,7 +54,7 @@ namespace Iterator
 
         public IEnumerator<T> GetEnumerator()
         {
-            return new StackIterator<T>(this);
+            return new StackIterator(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -67,15 +67,10 @@ namespace Iterator
         private T[] _items;
         private int _nextIndex;
 
-        class StackIterator<T> : IEnumerator<T>
+        class StackIterator : IEnumerator<T>
         {
             public StackIterator(Stack<T> stack)
             {
-                if (stack == null)
-                {
-                    throw new ArgumentNullException();
-                }
-
                 _stack = stack;
                 Reset();
             }
