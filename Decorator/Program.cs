@@ -33,7 +33,7 @@ namespace Decorator
     {
         public string Compute()
         {
-            return "</br>";
+            return "<br/>";
         }
     }
 

@@ -15,7 +15,7 @@ namespace Builder
     /// <summary>
     /// Concrete product
     /// </summary>
-    class Car: IVehicle
+    class Car : IVehicle
     { /* ... */ }
 
     /// <summary>

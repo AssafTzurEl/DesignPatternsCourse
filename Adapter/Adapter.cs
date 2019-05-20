@@ -58,7 +58,7 @@ namespace Adapter
         string ToString(bool prettyPrint);
     }
 
-    // ToDo: if (your age / 2 == 0) implement ITree using JSON, else implement ITree using XML.
+    // ToDo: if (your age % 2 == 0) implement ITree using JSON, else implement ITree using XML.
 
     class Program
     {
