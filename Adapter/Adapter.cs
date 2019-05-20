@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adapter.v1
+namespace Adapter
 {
     /// <summary>
     /// Represents a tree of nodes, each one may contain other nodes (branches)
