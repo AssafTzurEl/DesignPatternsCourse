@@ -24,7 +24,7 @@ namespace Visitor
         /// </summary>
         /// <param name="visitor"></param>
         /// <returns></returns>
-        public virtual int GetSalary(SalaryVisitor visitor)
+        public virtual int Accept(IVisitor visitor)
         {
             return visitor.Visit(this);
         }
@@ -44,7 +44,7 @@ namespace Visitor
         /// </summary>
         /// <param name="visitor"></param>
         /// <returns></returns>
-        public override int GetSalary(SalaryVisitor visitor)
+        public override int Accept(IVisitor visitor)
         {
             return visitor.Visit(this);
         }
@@ -64,7 +64,7 @@ namespace Visitor
         /// </summary>
         /// <param name="visitor"></param>
         /// <returns></returns>
-        public override int GetSalary(SalaryVisitor visitor)
+        public override int Accept(IVisitor visitor)
         {
             return visitor.Visit(this);
         }
@@ -122,15 +122,40 @@ namespace Visitor
         }
     }
 
+    class LetterHeaderVisitor : IVisitor
+    {
+        public override int Visit(Employee e)
+        {
+            Console.WriteLine($"Hi {e.Name},");
+
+            return 0;
+        }
+
+        public override int Visit(Developer dev)
+        {
+            Console.WriteLine($"Dear {dev.Name},");
+
+            return 0;
+        }
+
+        public override int Visit(Ceo ceo)
+        {
+            Console.WriteLine($"Greetings, your excellence!");
+
+            return 0;
+        }
+    }
 
     class Program
     {
-        static void ProcessSalaries(IEnumerable<Employee> employees, SalaryVisitor salaryCalculator)
+        static void ProcessSalaries(IEnumerable<Employee> employees,
+            IVisitor salaryCalculator)
         {
             Console.WriteLine("{0,-12}{1,7}", "Employee", "Salary");
             foreach (var employee in employees)
             {
-                Console.WriteLine("{0,-12}{1,7}", employee.Name, employee.GetSalary(salaryCalculator));
+                Console.WriteLine("{0,-12}{1,7}", employee.Name,
+                    employee.Accept(salaryCalculator));
             }
         }
 
@@ -154,6 +179,15 @@ namespace Visitor
             {
                 // last month of the year - bonus time!
                 ProcessSalaries(employees, new BonusSalaryVisitor());
+            }
+
+            Console.WriteLine();
+
+            var letterWriter = new LetterHeaderVisitor();
+
+            foreach (var emp in employees)
+            {
+                emp.Accept(letterWriter);
             }
         }
     }
