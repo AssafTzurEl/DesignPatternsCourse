@@ -91,7 +91,7 @@ namespace Decorator
 
         public override string Compute()
         {
-            return $"<a href=\"{_url}>{_htmlElement.Compute()}</a>";
+            return $"<a href=\"{_url}\">{_htmlElement.Compute()}</a>";
         }
 
         private Uri _url;
@@ -101,9 +101,9 @@ namespace Decorator
     {
         static void Main(string[] args)
         {
-            var text = new TextElement("Hello, CodeValue!");
+            var text = new TextElement("Hello, World!");
             var bold = new BoldDecorator(text);
-            IHtmlElement htmlElement = new LinkDecorator(bold, new Uri("http://codevalue.net"));
+            IHtmlElement htmlElement = new LinkDecorator(bold, new Uri("http://www.pashut.co.il/"));
 
             Console.WriteLine(htmlElement.Compute());
         }
